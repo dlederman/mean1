@@ -1,32 +1,18 @@
 export class MainController {
-  constructor ($timeout, webDevTec, toastr) {
+  constructor ($http) {
     'ngInject';
 
-    this.awesomeThings = [];
-    this.classAnimation = '';
-    this.creationDate = 1485116874190;
-    this.toastr = toastr;
 
-    this.activate($timeout, webDevTec);
+    this.$http = $http;
   }
 
-  activate($timeout, webDevTec) {
-    this.getWebDevTec(webDevTec);
-    $timeout(() => {
-      this.classAnimation = 'rubberBand';
-    }, 4000);
-  }
-
-  getWebDevTec(webDevTec) {
-    this.awesomeThings = webDevTec.getTec();
-
-    angular.forEach(this.awesomeThings, (awesomeThing) => {
-      awesomeThing.rank = Math.random();
-    });
-  }
-
-  showToastr() {
-    this.toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-    this.classAnimation = '';
+  postMessage() {
+    this.$http.post('http://localhost:5000/api/message', {msg: this.message});
   }
 }
+
+
+/*
+Instead of using traditional function syntax to create Angular controller, we are using a CS6 module and we
+do that via the export class syntax.
+ */
